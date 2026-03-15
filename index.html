@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BOJACKLE — Daily Episode Guesser</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#0e0d18;min-height:100%}
+body{background:#0e0d18;color:#e8e0d0;font-family:'DM Sans',sans-serif;min-height:100vh;padding-bottom:48px}
+.app{max-width:660px;margin:0 auto;padding:14px 14px 0}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 0 13px;border-bottom:1px solid #221f40;margin-bottom:16px}
+.logo{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:#f5c842;letter-spacing:-1px;line-height:1.1;user-select:none}
+.logo small{display:block;font-size:9px;font-weight:600;letter-spacing:3px;color:#5a5770;font-family:'DM Sans',sans-serif;text-transform:uppercase;margin-top:1px}
+.topbtns{display:flex;gap:5px}
+.tbtn{background:transparent;border:1px solid #2a2845;border-radius:7px;padding:5px 10px;color:#6b6888;cursor:pointer;font-size:11px;font-family:'DM Sans',sans-serif;font-weight:600;letter-spacing:.3px;transition:all .15s}
+.tbtn:hover{background:#1a1930;color:#c8c0e0;border-color:#3a3858}
+.tbtn.act{border-color:#f5c842;color:#f5c842;background:#1a1828}
+.pnav{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:12px}
+.navbtn{background:transparent;border:1px solid #2a2845;border-radius:6px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#6b6888;font-size:12px;transition:all .15s;flex-shrink:0;font-family:'DM Sans',sans-serif}
+.navbtn:hover:not(:disabled){background:#1a1930;color:#e8e0d0}
+.navbtn:disabled{opacity:.2;cursor:default}
+.pinfo{text-align:center;min-width:160px}
+.pnum{font-size:13px;font-weight:600;color:#a89fc0;letter-spacing:.4px}
+.pdate{font-size:11px;color:#4a4865;margin-top:2px}
+.sgrid{display:grid;gap:5px;margin-bottom:12px}
+.g1{grid-template-columns:1fr}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr 1fr 1fr}
+.g4{grid-template-columns:1fr 1fr}.g5{grid-template-columns:1fr 1fr 1fr}
+.shotw{position:relative;border-radius:7px;overflow:hidden;border:1px solid #2a2845;aspect-ratio:16/9;background:#0a0918}
+.shotw img{width:100%;height:100%;object-fit:cover;display:block}
+.snum{position:absolute;top:5px;left:6px;background:rgba(0,0,0,.75);border-radius:4px;padding:2px 7px;font-size:10px;color:#a89fc0;font-weight:700;letter-spacing:.5px}
+.newbadge{position:absolute;top:5px;right:6px;background:#f5c842;color:#0e0d18;border-radius:4px;padding:2px 7px;font-size:9px;font-weight:700;letter-spacing:.5px;animation:pop .3s}
+.prow{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+.dots{display:flex;gap:5px}
+.dot{width:9px;height:9px;border-radius:50%;background:#221f40;transition:background .3s}
+.dot.l{background:#f5c842}.dot.g{background:#42b27a}.dot.r{background:#e84a5f}.dot.sk{background:#3a3858}
+.pcnt{font-size:11px;color:#4a4865}
+.swr{position:relative;margin-bottom:7px}
+.si{width:100%;background:#14132a;border:1.5px solid #2a2845;border-radius:9px;padding:11px 14px;font-size:14px;color:#e8e0d0;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s}
+.si:focus{border-color:#f5c842}.si::placeholder{color:#3a3858}
+.ddown{position:absolute;top:calc(100% + 3px);left:0;right:0;background:#14132a;border:1px solid #2a2845;border-radius:9px;overflow:hidden;z-index:100;max-height:220px;overflow-y:auto;box-shadow:0 8px 28px rgba(0,0,0,.6)}
+.ddown::-webkit-scrollbar{width:3px}.ddown::-webkit-scrollbar-thumb{background:#2a2845;border-radius:2px}
+.sug{padding:9px 14px;cursor:pointer;font-size:13px;color:#c0b8d8;border-bottom:1px solid #1c1b30;display:flex;align-items:center;gap:9px;transition:background .1s}
+.sug:last-child{border-bottom:none}.sug:hover,.sug.hi{background:#1e1c38;color:#f5c842}
+.eid{font-size:10px;color:#5a5770;font-weight:700;flex-shrink:0;min-width:40px;letter-spacing:.4px}
+.brow{display:flex;gap:6px;margin-bottom:7px}
+.btn{padding:10px 14px;border-radius:8px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;transition:all .15s;flex:1}
+.bp{background:#f5c842;color:#0e0d18}.bp:hover{background:#ffd84a}.bp:disabled{background:#221f40;color:#3a3858;cursor:not-allowed}
+.bs{background:transparent;color:#6b6888;border:1px solid #2a2845}.bs:hover{background:#1a1930;color:#a898c0}.bs:disabled{opacity:.3;cursor:not-allowed}
+.glist{display:flex;flex-direction:column;gap:5px;margin-top:8px}
+.gi{display:flex;align-items:center;gap:9px;padding:8px 13px;border-radius:7px;font-size:13px;animation:slin .2s ease}
+.gi.g{background:#0e1e14;border:1px solid #1a4028;color:#42b27a}
+.gi.r{background:#1e0e14;border:1px solid #481828;color:#d07888}
+.gi.sk{background:#16152a;border:1px solid #221f40;color:#3a3858}
+.rc{background:#16152a;border:1px solid #2a2845;border-radius:14px;padding:22px 18px;text-align:center;margin-top:12px}
+.rtt{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin:10px 0 4px}
+.rtt.won{color:#f5c842}.rtt.lost{color:#e84a5f}
+.rep{font-size:12px;color:#5a5770;margin-bottom:3px}
+.ren{font-size:15px;font-weight:600;color:#e8e0d0;margin-bottom:8px}
+.rsn{display:inline-block;background:#1a1828;border:1px solid #2a2845;border-radius:20px;padding:2px 12px;font-size:11px;color:#a898c0;margin-bottom:12px}
+.sdots{display:flex;gap:4px;justify-content:center;margin-bottom:14px}
+.ssq{width:17px;height:17px;border-radius:3px;background:#221f40}
+.ssq.g{background:#42b27a}.ssq.r{background:#e84a5f}.ssq.sk{background:#3a3858}
+.sbtn{background:#f5c842;color:#0e0d18;border:none;border-radius:7px;padding:10px 22px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s}
+.sbtn:hover{background:#ffd84a}
+.copiedtxt{font-size:11px;color:#42b27a;margin-top:6px;min-height:16px}
+.sht{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.bkbtn{background:transparent;border:1px solid #2a2845;border-radius:7px;padding:6px 11px;color:#6b6888;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:600;transition:all .15s}
+.bkbtn:hover{background:#1a1930;color:#e8e0d0}
+.sectitle{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:#e8e0d0}
+.agrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.acard{background:#14132a;border:1px solid #221f40;border-radius:11px;padding:12px;cursor:pointer;transition:all .2s}
+.acard:hover{border-color:#3a3858;background:#1a1930}.acard.cur{border-color:#f5c842}
+.act2{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.acn{font-size:10px;font-weight:700;color:#5a5770;letter-spacing:.6px;text-transform:uppercase}
+.acd{font-size:11px;color:#4a4865;margin-bottom:3px}
+.ace{font-size:13px;font-weight:600;color:#e8e0d0;line-height:1.3}.ace.u{color:#3a3858;font-style:italic}
+.adm{max-width:480px;margin:0 auto}
+.pw{text-align:center;padding:30px 0}
+.ptit{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:5px}
+.psub{font-size:13px;color:#6b6888;margin-bottom:18px;line-height:1.5}
+.pin-in{background:#14132a;border:1.5px solid #2a2845;border-radius:8px;padding:12px;font-size:20px;color:#e8e0d0;font-family:'DM Sans',sans-serif;outline:none;width:170px;text-align:center;letter-spacing:6px;display:block;margin:0 auto 6px}
+.pin-in:focus{border-color:#f5c842}
+.perr{color:#e84a5f;font-size:12px;min-height:18px;margin-bottom:10px;display:block;text-align:center}
+.fl{font-size:11px;color:#a898c0;font-weight:600;margin-bottom:5px;display:block;letter-spacing:.4px;text-transform:uppercase}
+.fi{width:100%;background:#14132a;border:1.5px solid #2a2845;border-radius:7px;padding:9px 12px;font-size:13px;color:#e8e0d0;font-family:'DM Sans',sans-serif;outline:none;margin-bottom:8px;transition:border-color .2s}
+.fi:focus{border-color:#f5c842}
+.sg5{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+.sg5 .fi{margin-bottom:0;font-size:12px}
+.amsg{padding:9px 13px;border-radius:7px;font-size:12px;text-align:center;margin-top:9px;font-weight:600}
+.amsg.ok{background:#0e1e14;border:1px solid #1a4028;color:#42b27a}
+.amsg.er{background:#1e0e14;border:1px solid #481828;color:#e84a5f}
+.plbl{font-size:11px;color:#5a5770;font-weight:700;letter-spacing:.6px;text-transform:uppercase;margin:16px 0 8px}
+.pli{display:flex;align-items:center;justify-content:space-between;padding:9px 11px;background:#14132a;border:1px solid #221f40;border-radius:7px;margin-bottom:5px}
+.plinfo{display:flex;gap:8px;align-items:center;min-width:0;flex:1;overflow:hidden}
+.pldate{font-size:12px;color:#a898c0;font-weight:600;flex-shrink:0}
+.plep{font-size:12px;color:#5a5770;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.plbtns{display:flex;gap:5px;flex-shrink:0;align-items:center}
+.editbtn{background:transparent;border:1px solid #2a2845;border-radius:5px;padding:3px 9px;color:#6b6888;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .1s}
+.editbtn:hover{background:#1a1930;color:#e8e0d0}
+.delbtn{background:transparent;border:1px solid #481828;border-radius:5px;padding:3px 9px;color:#e84a5f;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .1s}
+.delbtn:hover{background:#1e0e14}
+.dconf-wrap{display:flex;gap:4px;align-items:center}
+.dconf-txt{font-size:11px;color:#e84a5f;margin-right:2px}
+.dcon{background:#e84a5f;border:none;border-radius:5px;padding:3px 9px;color:white;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif}
+.dcx{background:transparent;border:1px solid #2a2845;border-radius:5px;padding:3px 9px;color:#6b6888;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif}
+.nopu{text-align:center;padding:50px 0;color:#4a4865}
+.nopu h3{font-family:'Playfair Display',serif;font-size:18px;color:#5a5770;margin-bottom:7px}
+.nopu p{font-size:13px;line-height:1.6;color:#4a4865}
+.admhdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.formsec{background:#14132a;border:1px solid #221f40;border-radius:11px;padding:16px;margin-bottom:14px}
+.formsec h4{font-size:11px;font-weight:700;color:#a898c0;letter-spacing:.6px;text-transform:uppercase;margin-bottom:12px}
+.logoutbtn{background:transparent;border:1px solid #2a2845;border-radius:7px;padding:5px 10px;color:#5a5770;cursor:pointer;font-size:11px;font-family:'DM Sans',sans-serif;font-weight:600;transition:all .15s}
+.logoutbtn:hover{border-color:#481828;color:#e84a5f;background:#1e0e14}
+.aswr{position:relative}
+.ep-confirm{font-size:12px;color:#42b27a;margin:3px 0 8px;padding:0 2px;display:block}
+.loading-txt{text-align:center;padding:60px;color:#4a4865;font-size:13px}
+.info-box{background:#14132a;border:1px solid #2a2845;border-radius:9px;padding:12px 14px;font-size:12px;color:#6b6888;margin-bottom:14px;line-height:1.7}
+.info-box strong{color:#a89fc0}
+@keyframes pop{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
+@keyframes slin{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="logo">BOJACKLE<small>Episode Guesser</small></div>
+    <div class="topbtns">
+      <button class="tbtn" id="btn-game" onclick="switchView('game')">Today</button>
+      <button class="tbtn" id="btn-archive" onclick="switchView('archive')">Archive</button>
+      <button class="tbtn" id="btn-admin" onclick="switchView('admin')">⚙ Admin</button>
+    </div>
+  </div>
+  <div id="main-content"><div class="loading-txt">Loading Bojackle...</div></div>
+</div>
+
+<script>
+/* ─────────────────────────────────────────
+   STORAGE
+   Puzzles (index + puzzle data) are stored
+   under "shared-" keys so you can pre-load
+   them from any browser on the same device.
+   Player progress is stored under "player-"
+   keys and is per-browser as expected.
+───────────────────────────────────────── */
+const LS = {
+  get(k){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):null; }catch{ return null; } },
+  set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch{} },
+  del(k){ try{ localStorage.removeItem(k); }catch{} }
+};
+// Puzzle data — keyed with "bj-pz-YYYY-MM-DD"
+function getPuzzle(d){ return LS.get('bj-pz-'+d); }
+function savePuzzle(d,v){ LS.set('bj-pz-'+d,v); }
+function delPuzzle(d){ LS.del('bj-pz-'+d); }
+// Sorted list of all puzzle dates
+function getIndex(){ return LS.get('bj-index')||[]; }
+function setIndex(v){ LS.set('bj-index',v); }
+// Per-player game state for a date
+function getGS(d){ return LS.get('bj-gs-'+d); }
+function saveGS(d,v){ LS.set('bj-gs-'+d,v); }
+// Completion map {date: 'won'|'lost'}
+function getComp(){ return LS.get('bj-comp')||{}; }
+function saveComp(v){ LS.set('bj-comp',v); }
+// Admin PIN
+function getPin(){ return localStorage.getItem('bj-pin'); }
+function storePin(p){ localStorage.setItem('bj-pin',p); }
+
+/* ─── Episode Data ─── */
+const EPS = [
+  [1,1,'BoJack Horseman: The BoJack Horseman Story, Chapter One'],
+  [1,2,'BoJack Horseman: The BoJack Horseman Story, Chapter Two'],
+  [1,3,'Prickly-Muffin'],[1,4,'Zoes and Zeldas'],[1,5,'Live Fast, Diane Nguyen'],
+  [1,6,'Our A-Story Is a "D" Story'],[1,7,'Say Anything'],[1,8,'The Telescope'],
+  [1,9,'Horse Majeure'],[1,10,'One Trick Pony'],[1,11,'Downer Ending'],[1,12,'Later'],
+  [2,1,'Brand New Couch'],[2,2,'Yesterdayland'],[2,3,'Still Broken'],[2,4,'After the Party'],
+  [2,5,'Chickens'],[2,6,'Higher Love'],[2,7,"Let's Find Out"],[2,8,'Start Spreading the News'],
+  [2,9,'The Shot'],[2,10,'Yes And'],[2,11,'Bojack Kills'],[2,12,'Out to Sea'],
+  [3,1,'Start Spreading the News'],[3,2,'The BoJack Horseman Show'],[3,3,'BoJack Kills'],
+  [3,4,'Fish Out of Water'],[3,5,'Love And/Or Marriage'],[3,6,'Brrap Brrap Pew Pew'],
+  [3,7,'Stop the Presses'],[3,8,'Old Acquaintance'],[3,9,'Best Thing That Ever Happened'],
+  [3,10,"It's You"],[3,11,"That's Too Much, Man!"],[3,12,'That Went Well'],
+  [4,1,'See Mr. Peanutbutter Run'],[4,2,'The Old Sugarman Place'],[4,3,'Hooray! Todd Episode!'],
+  [4,4,'Commence Fracking'],[4,5,'Thoughts and Prayers'],[4,6,'Stupid Piece of Sh*t'],
+  [4,7,'Underground'],[4,8,'The Judge'],[4,9,'Ruthie'],[4,10,'lovin that cali lifestyle!!'],
+  [4,11,"Time's Arrow"],[4,12,'What Time Is It Right Now'],
+  [5,1,'The Light Bulb Scene'],[5,2,'The Dog Days Are Over'],[5,3,'Planned Obsolescence'],
+  [5,4,'BoJack the Feminist'],[5,5,'The Amelia Earhart Story'],[5,6,'Free Churro'],
+  [5,7,'INT. SUB'],[5,8,'Ancient History'],[5,9,'The Stopped Show'],
+  [5,10,'Head in the Clouds'],[5,11,'The Showstopper'],[5,12,'The Kidney Stays in the Picture'],
+  [6,1,'A Horse Walks into a Rehab'],[6,2,'The New Client'],[6,3,'Feel-Good Story'],
+  [6,4,'Surprise!'],[6,5,'A Little Uneven, Is All'],[6,6,'The Kidney Stays in the Picture'],
+  [6,7,'Intermediate Scene'],[6,8,"A Quick One, While He's Away"],[6,9,'List of Waters'],
+  [6,10,'Good Damage'],[6,11,'Sunk Cost and All That'],[6,12,'Xerox of a Xerox'],
+  [6,13,'Common Cold Logic'],[6,14,'BoJack Horseman: The End of the World'],
+  [6,15,'The View from Halfway Down'],[6,16,'Nice While It Lasted']
+].map(([s,e,t])=>({season:s,ep:e,id:`S${String(s).padStart(2,'0')}E${String(e).padStart(2,'0')}`,title:t}));
+
+/* ─── Utils ─── */
+function todayStr(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+function fmtDate(ds){if(!ds)return '';const[y,m,d]=ds.split('-');return new Date(+y,+m-1,+d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function hi(t,q){if(!q.trim())return esc(t);const i=t.toLowerCase().indexOf(q.toLowerCase());if(i<0)return esc(t);return esc(t.slice(0,i))+`<strong style="color:#f5c842">${esc(t.slice(i,i+q.length))}</strong>`+esc(t.slice(i+q.length));}
+function getSugs(q){if(!q.trim())return [];const lq=q.toLowerCase();return EPS.filter(e=>e.title.toLowerCase().includes(lq)||e.id.toLowerCase().includes(lq)).slice(0,8);}
+
+/* ─── App State ─── */
+const A = {
+  view:'game', today:todayStr(),
+  currentDate:null, puzzle:null,
+  gs:{status:'playing',guesses:[],revealed:1},
+  index:[], comp:{},
+  input:'', focusIdx:-1,
+  adminAuthed:false, adminPin:null, isNewPin:false,
+  pinA:'', pinB:'', pinErr:'',
+  aForm:{date:todayStr(), epTitle:'', shots:['','','','','']},
+  aEpQ:'', aEpFocus:-1, aEpLocked:false,
+  aMsg:null, confirmDel:null, copied:false,
+};
+
+/* ─── Boot ─── */
+function boot(){
+  A.index = getIndex();
+  A.comp  = getComp();
+  A.adminPin = getPin();
+  A.isNewPin = !A.adminPin;
+  const avail = A.index.filter(d=>d<=A.today);
+  if(avail.length){ A.currentDate=avail[avail.length-1]; loadPuzzle(); }
+  render();
+}
+
+function loadPuzzle(){
+  A.puzzle = getPuzzle(A.currentDate);
+  A.gs = getGS(A.currentDate) || {status:'playing',guesses:[],revealed:1};
+  A.input=''; A.focusIdx=-1;
+}
+
+/* ─── Navigation ─── */
+window.navigate = function(dir){
+  const avail=A.index.filter(d=>d<=A.today);
+  const ni=avail.indexOf(A.currentDate)+dir;
+  if(ni<0||ni>=avail.length)return;
+  A.currentDate=avail[ni]; loadPuzzle(); render();
+};
+window.goToDate = function(date){
+  A.currentDate=date; A.view='game'; loadPuzzle(); render();
+};
+window.switchView = function(v){ A.view=v; render(); };
+
+/* ─── Game Logic ─── */
+function makeGuess(title){
+  const correct = title===A.puzzle.title;
+  A.gs.guesses.push({text:title,correct,skip:false});
+  A.input=''; A.focusIdx=-1;
+  if(correct){ A.gs.status='won'; markComp('won'); }
+  else if(A.gs.guesses.length>=5){ A.gs.status='lost'; markComp('lost'); }
+  else A.gs.revealed=Math.min(A.gs.revealed+1,5);
+  saveGS(A.currentDate,A.gs); render();
+}
+window.doSkip = function(){
+  A.gs.guesses.push({text:'Skipped',correct:false,skip:true});
+  if(A.gs.guesses.length>=5){ A.gs.status='lost'; markComp('lost'); }
+  else A.gs.revealed=Math.min(A.gs.revealed+1,5);
+  saveGS(A.currentDate,A.gs); render();
+};
+window.submitGuess = function(){
+  const sg=getSugs(A.input);
+  if(A.focusIdx>=0&&sg[A.focusIdx]){ makeGuess(sg[A.focusIdx].title); return; }
+  const exact=EPS.find(e=>e.title.toLowerCase()===A.input.toLowerCase());
+  if(exact){ makeGuess(exact.title); return; }
+  if(sg.length===1){ makeGuess(sg[0].title); return; }
+  if(A.input.trim()) makeGuess(A.input.trim());
+};
+function markComp(r){ A.comp[A.currentDate]=r; saveComp(A.comp); }
+window.copyShare = function(){
+  const n=A.index.filter(d=>d<=A.currentDate).indexOf(A.currentDate)+1;
+  const sqs=A.gs.guesses.map(g=>g.skip?'⬛':g.correct?'🟩':'🟥').join('');
+  const res=A.gs.status==='won'?`${A.gs.guesses.length}/5`:'X/5';
+  const txt=`BOJACKLE #${n} — ${res}\n${sqs}\n\n"It gets easier... every day it gets a little easier."`;
+  navigator.clipboard.writeText(txt).then(()=>{ A.copied=true; render(); setTimeout(()=>{ A.copied=false; render(); },2400); });
+};
+
+/* ─── Admin Logic ─── */
+window.adminLogin = function(){
+  if(A.isNewPin){
+    if(A.pinA.length<4){ A.pinErr='PIN must be at least 4 digits'; render(); return; }
+    if(A.pinA!==A.pinB){ A.pinErr="PINs don't match"; render(); return; }
+    storePin(A.pinA); A.adminPin=A.pinA; A.isNewPin=false;
+  } else {
+    if(A.pinA!==A.adminPin){ A.pinErr='Incorrect PIN'; render(); return; }
+  }
+  A.adminAuthed=true; A.pinA=''; A.pinErr=''; render();
+};
+window.adminSave = function(){
+  const {date,epTitle,shots}=A.aForm;
+  if(!date){ A.aMsg={t:'er',m:'Please enter a date'}; render(); return; }
+  if(!epTitle){ A.aMsg={t:'er',m:'Please select an episode from the list'}; render(); return; }
+  const filled=shots.filter(s=>s.trim());
+  if(!filled.length){ A.aMsg={t:'er',m:'Add at least one screenshot URL'}; render(); return; }
+  const ep=EPS.find(e=>e.title===epTitle);
+  if(!ep){ A.aMsg={t:'er',m:'Episode not found — pick from the dropdown'}; render(); return; }
+  const last=filled[filled.length-1];
+  const padded=shots.map(s=>s.trim()||last);
+  savePuzzle(date,{title:ep.title,season:ep.season,ep:ep.ep,id:ep.id,shots:padded});
+  if(!A.index.includes(date)){ A.index.push(date); A.index.sort(); setIndex(A.index); }
+  A.aMsg={t:'ok',m:`Puzzle #${A.index.indexOf(date)+1} saved for ${fmtDate(date)}!`};
+  A.aForm={date:todayStr(),epTitle:'',shots:['','','','','']};
+  A.aEpQ=''; A.aEpLocked=false;
+  if(date<=A.today){ A.currentDate=date; loadPuzzle(); }
+  render();
+};
+window.adminDel = function(date){
+  delPuzzle(date);
+  A.index=A.index.filter(d=>d!==date); setIndex(A.index);
+  delete A.comp[date]; saveComp(A.comp);
+  if(A.currentDate===date){
+    const avail=A.index.filter(d=>d<=A.today);
+    if(avail.length){ A.currentDate=avail[avail.length-1]; loadPuzzle(); }
+    else{ A.currentDate=null; A.puzzle=null; A.gs={status:'playing',guesses:[],revealed:1}; }
+  }
+  A.confirmDel=null; A.aMsg={t:'ok',m:'Puzzle deleted'}; render();
+};
+window.adminConfirmDel = function(date){ A.confirmDel=date; render(); };
+window.adminCancelDel = function(){ A.confirmDel=null; render(); };
+window.adminEditLoad = function(date){
+  const pz=getPuzzle(date); if(!pz)return;
+  A.aForm={date,epTitle:pz.title,shots:[...pz.shots]};
+  A.aEpQ=pz.title; A.aEpLocked=true; A.aMsg=null;
+  document.getElementById('admin-form')?.scrollIntoView({behavior:'smooth',block:'start'});
+  render();
+};
+window.adminLogout = function(){ A.adminAuthed=false; A.pinA=''; render(); };
+
+/* ─── Render: Game ─── */
+function renderGame(){
+  if(!A.currentDate) return `<div class="nopu"><h3>No puzzles yet</h3><p>Add the first one from<br>the admin panel (⚙ above).</p></div>`;
+  const avail=A.index.filter(d=>d<=A.today);
+  const pos=avail.indexOf(A.currentDate);
+  const isLatest=pos===avail.length-1;
+  const navH=`<div class="pnav">
+    <button class="navbtn" onclick="navigate(-1)" ${pos<=0?'disabled':''}>&larr;</button>
+    <div class="pinfo">
+      <div class="pnum">BOJACKLE #${pos+1}</div>
+      <div class="pdate">${fmtDate(A.currentDate)}${isLatest?' · Latest':''}</div>
+    </div>
+    <button class="navbtn" onclick="navigate(1)" ${pos>=avail.length-1?'disabled':''}>&rarr;</button>
+  </div>`;
+  if(!A.puzzle) return navH+`<div class="nopu"><h3>No puzzle for this date</h3><p>Try another day or add one in admin.</p></div>`;
+  const {status,guesses,revealed}=A.gs;
+  const shots=A.puzzle.shots.slice(0,status!=='playing'?5:revealed);
+  const gc=['','g1','g2','g3','g4','g5'][shots.length]||'g5';
+  const dotsH=Array.from({length:5},(_,i)=>{const g=guesses[i];let c='dot';if(g)c+=' '+(g.skip?'sk':g.correct?'g':'r');else if(i<revealed)c+=' l';return `<div class="${c}"></div>`;}).join('');
+  const shotsH=shots.map((s,i)=>`<div class="shotw"><img src="${esc(s)}" alt="Screenshot ${i+1}" loading="lazy"/><div class="snum">#${i+1}</div>${status==='playing'&&i===shots.length-1&&revealed>1?'<div class="newbadge">NEW</div>':''}</div>`).join('');
+  const guessH=guesses.map(g=>`<div class="gi ${g.skip?'sk':g.correct?'g':'r'}"><span>${g.skip?'→':g.correct?'✓':'✗'}</span><span>${esc(g.text)}</span></div>`).join('');
+  let body='';
+  if(status!=='playing'){
+    const won=status==='won';
+    const sqH=Array.from({length:5},(_,i)=>{const g=guesses[i];const c=g?(g.skip?'sk':g.correct?'g':'r'):'';return `<div class="ssq ${c}"></div>`;}).join('');
+    body=`<div class="rc">
+      <div style="font-size:44px">${won?'🐴':'💔'}</div>
+      <div class="rtt ${status}">${won?"Neigh-borly!":"Horsin' Around"}</div>
+      <div class="rep">${esc(A.puzzle.id)} · Season ${A.puzzle.season}</div>
+      <div class="ren">"${esc(A.puzzle.title)}"</div>
+      <span class="rsn">Season ${A.puzzle.season}</span>
+      <div class="sdots">${sqH}</div>
+      <button class="sbtn" onclick="copyShare()">${A.copied?'✓ Copied!':'Share Results'}</button>
+      <div class="copiedtxt">${A.copied?'Copied to clipboard!':''}</div>
+    </div>${guesses.length?`<div class="glist" style="margin-top:10px">${guessH}</div>`:''}`;
+  } else {
+    const sg=getSugs(A.input); const showD=A.input.trim()&&sg.length>0;
+    body=`<div class="swr">
+      <input class="si" id="gsi" type="text" placeholder="Search episode title..." value="${esc(A.input)}" autocomplete="off" spellcheck="false"/>
+      ${showD?`<div class="ddown" id="gdrop">${sg.map((e,i)=>`<div class="sug${i===A.focusIdx?' hi':''}" data-title="${esc(e.title)}"><span class="eid">${e.id}</span>${hi(e.title,A.input)}</div>`).join('')}</div>`:''}
+    </div>
+    <div class="brow">
+      <button class="btn bs" ${revealed>=5?'disabled':''} onclick="doSkip()">Skip — Reveal Next Clue</button>
+      <button class="btn bp" ${!A.input.trim()?'disabled':''} onclick="submitGuess()">Guess</button>
+    </div>${guesses.length?`<div class="glist">${guessH}</div>`:''}`;
+  }
+  return `${navH}<div class="prow"><div class="dots">${dotsH}</div>
+    <div class="pcnt">${status==='playing'?`Clue ${revealed}/5 · ${5-guesses.length} guess${5-guesses.length===1?'':'es'} left`:status==='won'?'You got it! 🎉':'Better luck tomorrow'}</div>
+  </div><div class="sgrid ${gc}">${shotsH}</div>${body}`;
+}
+
+/* ─── Render: Archive ─── */
+function renderArchive(){
+  const avail=[...A.index].filter(d=>d<=A.today).reverse();
+  return `<div class="sht">
+    <button class="bkbtn" onclick="switchView('game')">← Back</button>
+    <span class="sectitle">All Puzzles</span>
+  </div>
+  ${!avail.length?`<div class="nopu"><h3>No puzzles yet</h3><p>Add one in the admin panel.</p></div>`:`<div class="agrid">${avail.map(d=>{
+    const n=A.index.indexOf(d)+1; const done=A.comp[d];
+    const icon=done==='won'?'🟩':done==='lost'?'🟥':'';
+    const pz=done?getPuzzle(d):null;
+    return `<div class="acard${A.currentDate===d?' cur':''}" onclick="goToDate('${d}')">
+      <div class="act2"><span class="acn">#${n}</span><span style="font-size:14px">${icon}</span></div>
+      <div class="acd">${fmtDate(d)}</div>
+      <div class="ace${!done?' u':''}">${done&&pz?esc(pz.title):'???'}</div>
+    </div>`;
+  }).join('')}</div>`}`;
+}
+
+/* ─── Render: Admin ─── */
+function renderAdmin(){
+  if(!A.adminAuthed){
+    return `<div class="sht">
+      <button class="bkbtn" onclick="switchView('game')">← Back</button>
+      <span class="sectitle">Admin</span>
+    </div>
+    <div class="adm"><div class="pw">
+      <div class="ptit">${A.isNewPin?'Set Your PIN':'Admin Login'}</div>
+      <div class="psub">${A.isNewPin?'Create a PIN to protect this panel.<br>Only you will be able to add puzzles.':'Enter your PIN to manage puzzles.'}</div>
+      <input class="pin-in" id="pinA" type="password" inputmode="numeric" maxlength="12" placeholder="••••" value="${esc(A.pinA)}" autocomplete="off"/>
+      ${A.isNewPin?`<input class="pin-in" id="pinB" type="password" inputmode="numeric" maxlength="12" placeholder="Confirm" value="${esc(A.pinB)}" autocomplete="off" style="margin-top:7px"/>`:''}
+      <span class="perr">${esc(A.pinErr)}</span>
+      <button class="btn bp" style="width:140px;margin:0 auto;display:block" onclick="adminLogin()">${A.isNewPin?'Set PIN':'Login'}</button>
+    </div></div>`;
+  }
+  const sg=getSugs(A.aEpQ); const showAS=A.aEpQ.trim()&&sg.length>0&&!A.aEpLocked;
+  const existing=[...A.index].reverse();
+  return `<div class="adm">
+    <div class="admhdr">
+      <div class="sht" style="margin-bottom:0">
+        <button class="bkbtn" onclick="switchView('game')">← Back</button>
+        <span class="sectitle">Admin Panel</span>
+      </div>
+      <button class="logoutbtn" onclick="adminLogout()">Logout</button>
+    </div>
+    <div class="info-box">
+      <strong>How puzzles work:</strong> Add a puzzle for any date — past or future. Players won't see future puzzles until that date arrives. You can schedule a whole week ahead at once. Puzzle data is stored in your browser's localStorage, so add puzzles from the same device/browser you used to set up the site.
+    </div>
+    <div class="formsec" id="admin-form">
+      <h4>Add / Edit Puzzle</h4>
+      <label class="fl">Date</label>
+      <input class="fi" id="aDate" type="date" value="${esc(A.aForm.date)}"/>
+      <label class="fl">Episode</label>
+      <div class="aswr">
+        <input class="fi" id="aEpQ" type="text" placeholder="Search episode title..." value="${esc(A.aEpQ)}" autocomplete="off" style="margin-bottom:0"/>
+        ${showAS?`<div class="ddown" id="aEpDrop">${sg.map((e,i)=>`<div class="sug${i===A.aEpFocus?' hi':''}" data-title="${esc(e.title)}"><span class="eid">${e.id}</span>${hi(e.title,A.aEpQ)}</div>`).join('')}</div>`:''}
+      </div>
+      ${A.aForm.epTitle?`<span class="ep-confirm">✓ ${esc(A.aForm.epTitle)}</span>`:'<div style="height:8px"></div>'}
+      <label class="fl">Screenshot URLs — enter 1 to 5</label>
+      <div class="sg5">
+        ${A.aForm.shots.map((s,i)=>`<input class="fi" id="shot${i}" type="url" placeholder="Shot ${i+1} URL" value="${esc(s)}"/>`).join('')}
+      </div>
+      <button class="btn bp" onclick="adminSave()">Save Puzzle</button>
+      ${A.aMsg?`<div class="amsg ${A.aMsg.t}">${esc(A.aMsg.m)}</div>`:''}
+    </div>
+    ${existing.length?`<div class="plbl">All Puzzles — ${existing.length} total</div>
+    ${existing.map(d=>{
+      const n=A.index.indexOf(d)+1; const pz=getPuzzle(d); const isConf=A.confirmDel===d;
+      return `<div class="pli">
+        <div class="plinfo">
+          <span class="pldate">#${n} · ${d}</span>
+          <span class="plep">${pz?esc(pz.title):'—'}</span>
+        </div>
+        <div class="plbtns">${isConf?`<div class="dconf-wrap">
+          <span class="dconf-txt">Delete?</span>
+          <button class="dcon" onclick="adminDel('${d}')">Yes</button>
+          <button class="dcx" onclick="adminCancelDel()">No</button>
+        </div>`:`
+          <button class="editbtn" onclick="adminEditLoad('${d}')">Edit</button>
+          <button class="delbtn" onclick="adminConfirmDel('${d}')">Delete</button>
+        `}</div>
+      </div>`;
+    }).join('')}`:''}
+  </div>`;
+}
+
+/* ─── Main Render ─── */
+function render(){
+  document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('act'));
+  document.getElementById('btn-'+A.view)?.classList.add('act');
+  const mc=document.getElementById('main-content');
+  if(A.view==='game') mc.innerHTML=renderGame();
+  else if(A.view==='archive') mc.innerHTML=renderArchive();
+  else mc.innerHTML=renderAdmin();
+  bindEvents();
+}
+
+/* ─── Event Binding ─── */
+function bindEvents(){
+  const gsi=document.getElementById('gsi');
+  if(gsi){
+    gsi.focus(); gsi.setSelectionRange(gsi.value.length,gsi.value.length);
+    gsi.addEventListener('input',e=>{A.input=e.target.value;A.focusIdx=-1;render();});
+    gsi.addEventListener('keydown',e=>{
+      const sg=getSugs(A.input);
+      if(e.key==='ArrowDown'){e.preventDefault();A.focusIdx=Math.min(A.focusIdx+1,sg.length-1);render();}
+      else if(e.key==='ArrowUp'){e.preventDefault();A.focusIdx=Math.max(A.focusIdx-1,-1);render();}
+      else if(e.key==='Enter'){e.preventDefault();if(A.focusIdx>=0&&sg[A.focusIdx])makeGuess(sg[A.focusIdx].title);else if(A.input.trim())submitGuess();}
+      else if(e.key==='Escape'){A.input='';render();}
+    });
+    document.querySelectorAll('#gdrop .sug').forEach(el=>{
+      el.addEventListener('mousedown',e=>e.preventDefault());
+      el.addEventListener('click',()=>makeGuess(el.dataset.title));
+    });
+  }
+  const pinA=document.getElementById('pinA');
+  if(pinA){
+    pinA.focus();
+    pinA.addEventListener('input',e=>{A.pinA=e.target.value;A.pinErr='';});
+    pinA.addEventListener('keydown',e=>{if(e.key==='Enter')adminLogin();});
+  }
+  const pinB=document.getElementById('pinB');
+  if(pinB){
+    pinB.addEventListener('input',e=>{A.pinB=e.target.value;A.pinErr='';});
+    pinB.addEventListener('keydown',e=>{if(e.key==='Enter')adminLogin();});
+  }
+  const aDate=document.getElementById('aDate');
+  if(aDate) aDate.addEventListener('change',e=>{A.aForm.date=e.target.value;});
+  const aEpEl=document.getElementById('aEpQ');
+  if(aEpEl){
+    aEpEl.addEventListener('input',e=>{A.aEpQ=e.target.value;A.aEpFocus=-1;A.aEpLocked=false;A.aForm.epTitle='';render();});
+    aEpEl.addEventListener('keydown',e=>{
+      const sg=getSugs(A.aEpQ);
+      if(e.key==='ArrowDown'){e.preventDefault();A.aEpFocus=Math.min(A.aEpFocus+1,sg.length-1);render();}
+      else if(e.key==='ArrowUp'){e.preventDefault();A.aEpFocus=Math.max(A.aEpFocus-1,-1);render();}
+      else if(e.key==='Enter'){e.preventDefault();if(A.aEpFocus>=0&&sg[A.aEpFocus]){A.aForm.epTitle=sg[A.aEpFocus].title;A.aEpQ=sg[A.aEpFocus].title;A.aEpLocked=true;render();}}
+    });
+    document.querySelectorAll('#aEpDrop .sug').forEach(el=>{
+      el.addEventListener('mousedown',e=>e.preventDefault());
+      el.addEventListener('click',()=>{A.aForm.epTitle=el.dataset.title;A.aEpQ=el.dataset.title;A.aEpLocked=true;render();});
+    });
+  }
+  [0,1,2,3,4].forEach(i=>{
+    const el=document.getElementById('shot'+i);
+    if(el) el.addEventListener('input',e=>{A.aForm.shots[i]=e.target.value;});
+  });
+}
+
+boot();
+</script>
+</body>
+</html>
