@@ -19,6 +19,7 @@ body{background:#0e0d18;color:#e8e0d0;font-family:'DM Sans',sans-serif;min-heigh
 .tbtn{background:transparent;border:1px solid #2a2845;border-radius:7px;padding:5px 10px;color:#6b6888;cursor:pointer;font-size:11px;font-family:'DM Sans',sans-serif;font-weight:600;letter-spacing:.3px;transition:all .15s}
 .tbtn:hover{background:#1a1930;color:#c8c0e0;border-color:#3a3858}
 .tbtn.act{border-color:#f5c842;color:#f5c842;background:#1a1828}
+/* Nav */
 .pnav{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:12px}
 .navbtn{background:transparent;border:1px solid #2a2845;border-radius:6px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#6b6888;font-size:12px;transition:all .15s;flex-shrink:0;font-family:'DM Sans',sans-serif}
 .navbtn:hover:not(:disabled){background:#1a1930;color:#e8e0d0}
@@ -26,6 +27,7 @@ body{background:#0e0d18;color:#e8e0d0;font-family:'DM Sans',sans-serif;min-heigh
 .pinfo{text-align:center;min-width:160px}
 .pnum{font-size:13px;font-weight:600;color:#a89fc0;letter-spacing:.4px}
 .pdate{font-size:11px;color:#4a4865;margin-top:2px}
+/* Screenshots */
 .sgrid{display:grid;gap:5px;margin-bottom:12px}
 .g1{grid-template-columns:1fr}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr 1fr 1fr}
 .g4{grid-template-columns:1fr 1fr}.g5{grid-template-columns:1fr 1fr 1fr}
@@ -33,11 +35,13 @@ body{background:#0e0d18;color:#e8e0d0;font-family:'DM Sans',sans-serif;min-heigh
 .shotw img{width:100%;height:100%;object-fit:cover;display:block}
 .snum{position:absolute;top:5px;left:6px;background:rgba(0,0,0,.75);border-radius:4px;padding:2px 7px;font-size:10px;color:#a89fc0;font-weight:700;letter-spacing:.5px}
 .newbadge{position:absolute;top:5px;right:6px;background:#f5c842;color:#0e0d18;border-radius:4px;padding:2px 7px;font-size:9px;font-weight:700;letter-spacing:.5px;animation:pop .3s}
+/* Progress */
 .prow{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
 .dots{display:flex;gap:5px}
 .dot{width:9px;height:9px;border-radius:50%;background:#221f40;transition:background .3s}
 .dot.l{background:#f5c842}.dot.g{background:#42b27a}.dot.r{background:#e84a5f}.dot.sk{background:#3a3858}
 .pcnt{font-size:11px;color:#4a4865}
+/* Input */
 .swr{position:relative;margin-bottom:7px}
 .si{width:100%;background:#14132a;border:1.5px solid #2a2845;border-radius:9px;padding:11px 14px;font-size:14px;color:#e8e0d0;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s}
 .si:focus{border-color:#f5c842}.si::placeholder{color:#3a3858}
@@ -46,15 +50,18 @@ body{background:#0e0d18;color:#e8e0d0;font-family:'DM Sans',sans-serif;min-heigh
 .sug{padding:9px 14px;cursor:pointer;font-size:13px;color:#c0b8d8;border-bottom:1px solid #1c1b30;display:flex;align-items:center;gap:9px;transition:background .1s}
 .sug:last-child{border-bottom:none}.sug:hover,.sug.hi{background:#1e1c38;color:#f5c842}
 .eid{font-size:10px;color:#5a5770;font-weight:700;flex-shrink:0;min-width:40px;letter-spacing:.4px}
+/* Buttons */
 .brow{display:flex;gap:6px;margin-bottom:7px}
 .btn{padding:10px 14px;border-radius:8px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;transition:all .15s;flex:1}
 .bp{background:#f5c842;color:#0e0d18}.bp:hover{background:#ffd84a}.bp:disabled{background:#221f40;color:#3a3858;cursor:not-allowed}
 .bs{background:transparent;color:#6b6888;border:1px solid #2a2845}.bs:hover{background:#1a1930;color:#a898c0}.bs:disabled{opacity:.3;cursor:not-allowed}
+/* Guesses */
 .glist{display:flex;flex-direction:column;gap:5px;margin-top:8px}
 .gi{display:flex;align-items:center;gap:9px;padding:8px 13px;border-radius:7px;font-size:13px;animation:slin .2s ease}
 .gi.g{background:#0e1e14;border:1px solid #1a4028;color:#42b27a}
 .gi.r{background:#1e0e14;border:1px solid #481828;color:#d07888}
 .gi.sk{background:#16152a;border:1px solid #221f40;color:#3a3858}
+/* Result */
 .rc{background:#16152a;border:1px solid #2a2845;border-radius:14px;padding:22px 18px;text-align:center;margin-top:12px}
 .rtt{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin:10px 0 4px}
 .rtt.won{color:#f5c842}.rtt.lost{color:#e84a5f}
@@ -67,6 +74,7 @@ body{background:#0e0d18;color:#e8e0d0;font-family:'DM Sans',sans-serif;min-heigh
 .sbtn{background:#f5c842;color:#0e0d18;border:none;border-radius:7px;padding:10px 22px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s}
 .sbtn:hover{background:#ffd84a}
 .copiedtxt{font-size:11px;color:#42b27a;margin-top:6px;min-height:16px}
+/* Archive */
 .sht{display:flex;align-items:center;gap:10px;margin-bottom:16px}
 .bkbtn{background:transparent;border:1px solid #2a2845;border-radius:7px;padding:6px 11px;color:#6b6888;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:600;transition:all .15s}
 .bkbtn:hover{background:#1a1930;color:#e8e0d0}
@@ -78,46 +86,15 @@ body{background:#0e0d18;color:#e8e0d0;font-family:'DM Sans',sans-serif;min-heigh
 .acn{font-size:10px;font-weight:700;color:#5a5770;letter-spacing:.6px;text-transform:uppercase}
 .acd{font-size:11px;color:#4a4865;margin-bottom:3px}
 .ace{font-size:13px;font-weight:600;color:#e8e0d0;line-height:1.3}.ace.u{color:#3a3858;font-style:italic}
-.adm{max-width:480px;margin:0 auto}
-.pw{text-align:center;padding:30px 0}
-.ptit{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:5px}
-.psub{font-size:13px;color:#6b6888;margin-bottom:18px;line-height:1.6}
-.pin-in{background:#14132a;border:1.5px solid #2a2845;border-radius:8px;padding:12px;font-size:20px;color:#e8e0d0;font-family:'DM Sans',sans-serif;outline:none;width:170px;text-align:center;letter-spacing:6px;display:block;margin:0 auto 6px}
-.pin-in:focus{border-color:#f5c842}
-.perr{color:#e84a5f;font-size:12px;min-height:18px;margin-bottom:10px;display:block;text-align:center}
-.fl{font-size:11px;color:#a898c0;font-weight:600;margin-bottom:5px;display:block;letter-spacing:.4px;text-transform:uppercase}
-.fi{width:100%;background:#14132a;border:1.5px solid #2a2845;border-radius:7px;padding:9px 12px;font-size:13px;color:#e8e0d0;font-family:'DM Sans',sans-serif;outline:none;margin-bottom:8px;transition:border-color .2s}
-.fi:focus{border-color:#f5c842}
-.sg5{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
-.sg5 .fi{margin-bottom:0;font-size:12px}
-.amsg{padding:9px 13px;border-radius:7px;font-size:12px;text-align:center;margin-top:9px;font-weight:600}
-.amsg.ok{background:#0e1e14;border:1px solid #1a4028;color:#42b27a}
-.amsg.er{background:#1e0e14;border:1px solid #481828;color:#e84a5f}
-.plbl{font-size:11px;color:#5a5770;font-weight:700;letter-spacing:.6px;text-transform:uppercase;margin:16px 0 8px}
-.pli{display:flex;align-items:center;justify-content:space-between;padding:9px 11px;background:#14132a;border:1px solid #221f40;border-radius:7px;margin-bottom:5px}
-.plinfo{display:flex;gap:8px;align-items:center;min-width:0;flex:1;overflow:hidden}
-.pldate{font-size:12px;color:#a898c0;font-weight:600;flex-shrink:0}
-.plep{font-size:12px;color:#5a5770;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.plbtns{display:flex;gap:5px;flex-shrink:0;align-items:center}
-.editbtn{background:transparent;border:1px solid #2a2845;border-radius:5px;padding:3px 9px;color:#6b6888;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .1s}
-.editbtn:hover{background:#1a1930;color:#e8e0d0}
-.delbtn{background:transparent;border:1px solid #481828;border-radius:5px;padding:3px 9px;color:#e84a5f;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .1s}
-.delbtn:hover{background:#1e0e14}
-.dconf-wrap{display:flex;gap:4px;align-items:center}
-.dconf-txt{font-size:11px;color:#e84a5f;margin-right:2px}
-.dcon{background:#e84a5f;border:none;border-radius:5px;padding:3px 9px;color:white;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif}
-.dcx{background:transparent;border:1px solid #2a2845;border-radius:5px;padding:3px 9px;color:#6b6888;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif}
+/* Misc */
 .nopu{text-align:center;padding:50px 0}
 .nopu h3{font-family:'Playfair Display',serif;font-size:18px;color:#5a5770;margin-bottom:7px}
 .nopu p{font-size:13px;line-height:1.6;color:#4a4865}
-.admhdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.formsec{background:#14132a;border:1px solid #221f40;border-radius:11px;padding:16px;margin-bottom:14px}
-.formsec h4{font-size:11px;font-weight:700;color:#a898c0;letter-spacing:.6px;text-transform:uppercase;margin-bottom:12px}
-.logoutbtn{background:transparent;border:1px solid #2a2845;border-radius:7px;padding:5px 10px;color:#5a5770;cursor:pointer;font-size:11px;font-family:'DM Sans',sans-serif;font-weight:600;transition:all .15s}
-.logoutbtn:hover{border-color:#481828;color:#e84a5f;background:#1e0e14}
-.aswr{position:relative}
-.ep-confirm{font-size:12px;color:#42b27a;margin:3px 0 8px;padding:0 2px;display:block}
 .loading-txt{text-align:center;padding:60px;color:#4a4865;font-size:13px}
+.err-box{background:#1e0e14;border:1px solid #481828;border-radius:10px;padding:16px 18px;text-align:center;margin-top:16px}
+.err-box h3{font-size:15px;color:#e84a5f;margin-bottom:6px}
+.err-box p{font-size:12px;color:#a06070;line-height:1.7}
+/* Setup */
 .setup-screen{background:#14132a;border:1px solid #2a2845;border-radius:14px;padding:28px 22px;margin-top:8px}
 .setup-screen h2{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#f5c842;margin-bottom:8px}
 .setup-screen p{font-size:13px;color:#a89fc0;line-height:1.7;margin-bottom:16px}
@@ -139,7 +116,6 @@ body{background:#0e0d18;color:#e8e0d0;font-family:'DM Sans',sans-serif;min-heigh
     <div class="topbtns">
       <button class="tbtn" id="btn-game" onclick="switchView('game')">Today</button>
       <button class="tbtn" id="btn-archive" onclick="switchView('archive')">Archive</button>
-      <button class="tbtn" id="btn-admin" onclick="switchView('admin')">&#9881; Admin</button>
     </div>
   </div>
   <div id="main-content"><div class="loading-txt">Loading Bojackle...</div></div>
@@ -147,48 +123,35 @@ body{background:#0e0d18;color:#e8e0d0;font-family:'DM Sans',sans-serif;min-heigh
 
 <script>
 /* =====================================================
-   STEP 1 — After completing Supabase setup below,
-   paste your two credentials here and re-upload.
+   Paste your Supabase credentials here.
 ===================================================== */
 const SUPABASE_URL  = 'https://onwgqxzzkcqphqlhlwgw.supabase.co';
 const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9ud2dxeHp6a2NxcGhxbGhsd2d3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2MTM5MTMsImV4cCI6MjA4OTE4OTkxM30.u7HmsgHtfGe4P2hZS7wJIHgxVc9swKkDLGj_qivr0tA';
 
-/* ── Supabase init ── */
+/* ── Supabase ── */
 let db = null;
 function initDB(){
   if(SUPABASE_URL === 'YOUR_SUPABASE_URL') return false;
   try{ db = supabase.createClient(SUPABASE_URL, SUPABASE_ANON); return true; }
   catch(e){ console.error('Supabase init error', e); return false; }
 }
-
-/* ── DB helpers ── */
 async function dbAll(){
-  const {data,error} = await db.from('puzzles').select('*').order('date');
+  const {data, error} = await db.from('puzzles').select('*').order('date');
   if(error) throw error;
   return data || [];
 }
-async function dbUpsert(row){
-  const {error} = await db.from('puzzles').upsert(row, {onConflict:'date'});
-  if(error) throw error;
-}
-async function dbDelete(date){
-  const {error} = await db.from('puzzles').delete().eq('date', date);
-  if(error) throw error;
-}
 
-/* ── localStorage (player-only data) ── */
+/* ── localStorage (player progress only) ── */
 const LS = {
   get(k){ try{ const v=localStorage.getItem(k); return v ? JSON.parse(v) : null; } catch{ return null; } },
   set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); } catch{} },
 };
-const getGS   = d => LS.get('bj-gs-'+d);
-const saveGS  = (d,v) => LS.set('bj-gs-'+d, v);
-const getComp = () => LS.get('bj-comp') || {};
-const saveComp= v => LS.set('bj-comp', v);
-const getPin  = () => localStorage.getItem('bj-pin');
-const setPin  = p => localStorage.setItem('bj-pin', p);
+const getGS    = d => LS.get('bj-gs-'+d);
+const saveGS   = (d,v) => LS.set('bj-gs-'+d, v);
+const getComp  = () => LS.get('bj-comp') || {};
+const saveComp = v => LS.set('bj-comp', v);
 
-/* ── Episode list ── */
+/* ── Episode list (for the guess autocomplete) ── */
 const EPS = [
   [1,1,'BoJack Horseman: The BoJack Horseman Story, Chapter One'],
   [1,2,'BoJack Horseman: The BoJack Horseman Story, Chapter Two'],
@@ -216,9 +179,13 @@ const EPS = [
   [6,10,'Good Damage'],[6,11,'Sunk Cost and All That'],[6,12,'Xerox of a Xerox'],
   [6,13,'Common Cold Logic'],[6,14,'BoJack Horseman: The End of the World'],
   [6,15,'The View from Halfway Down'],[6,16,'Nice While It Lasted']
-].map(([s,e,t]) => ({ season:s, ep:e, id:`S${String(s).padStart(2,'0')}E${String(e).padStart(2,'0')}`, title:t }));
+].map(([s,e,t]) => ({
+  season:s, ep:e,
+  id:`S${String(s).padStart(2,'0')}E${String(e).padStart(2,'0')}`,
+  title:t
+}));
 
-/* ── Utilities ── */
+/* ── Utils ── */
 function todayStr(){ const d=new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
 function fmtDate(ds){ if(!ds) return ''; const[y,m,d]=ds.split('-'); return new Date(+y,+m-1,+d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); }
 function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
@@ -227,24 +194,17 @@ function getSugs(q){ if(!q.trim()) return []; const lq=q.toLowerCase(); return E
 
 /* ── App state ── */
 const A = {
-  view:'game', today:todayStr(), ready:false, dbOk:false,
+  view:'game', today:todayStr(), ready:false, dbOk:false, loadErr:null,
   puzzles:[], currentDate:null, puzzle:null,
   gs:{status:'playing',guesses:[],revealed:1}, comp:{},
-  input:'', focusIdx:-1,
-  adminAuthed:false, adminPin:null, isNewPin:false,
-  pinA:'', pinB:'', pinErr:'',
-  aForm:{date:todayStr(), epTitle:'', shots:['','','','','']},
-  aEpQ:'', aEpFocus:-1, aEpLocked:false,
-  aMsg:null, aSaving:false, confirmDel:null, copied:false,
+  input:'', focusIdx:-1, copied:false,
 };
 
 /* ── Boot ── */
 async function boot(){
   A.dbOk = initDB();
   if(!A.dbOk){ render(); return; }
-  A.comp       = getComp();
-  A.adminPin   = getPin();
-  A.isNewPin   = !A.adminPin;
+  A.comp = getComp();
   try{
     A.puzzles = await dbAll();
     const avail = A.puzzles.filter(p => p.date <= A.today);
@@ -257,6 +217,7 @@ async function boot(){
     A.ready = true;
   } catch(e){
     console.error('Boot error', e);
+    A.loadErr = e.message;
     A.ready = true;
   }
   render();
@@ -279,7 +240,7 @@ window.navigate = dir => {
 window.goToDate = date => {
   const p = A.puzzles.find(p => p.date === date);
   if(!p) return;
-  A.currentDate = date; A.puzzle = p; A.view = 'game';
+  A.currentDate=date; A.puzzle=p; A.view='game';
   A.gs = getGS(date) || {status:'playing',guesses:[],revealed:1};
   A.input=''; A.focusIdx=-1;
   render();
@@ -319,162 +280,43 @@ function markComp(r){ A.comp[A.currentDate]=r; saveComp(A.comp); }
 window.copyShare = () => {
   const avail = A.puzzles.filter(p => p.date <= A.today);
   const n = avail.findIndex(p => p.date === A.currentDate) + 1;
-  const sqs = A.gs.guesses.map(g => g.skip ? '&#11035;' : g.correct ? '&#129001;' : '&#129000;').join('');
-  const res = A.gs.status === 'won' ? `${A.gs.guesses.length}/5` : 'X/5';
-  const txt = `BOJACKLE #${n} — ${res}\n${A.gs.guesses.map(g=>g.skip?'⬛':g.correct?'🟩':'🟥').join('')}\n\n"It gets easier... every day it gets a little easier."`;
+  const sqs = A.gs.guesses.map(g => g.skip?'⬛':g.correct?'🟩':'🟥').join('');
+  const res = A.gs.status==='won' ? `${A.gs.guesses.length}/5` : 'X/5';
+  const txt = `BOJACKLE #${n} — ${res}\n${sqs}\n\n"It gets easier... every day it gets a little easier."`;
   navigator.clipboard.writeText(txt).then(() => {
     A.copied=true; render();
     setTimeout(() => { A.copied=false; render(); }, 2400);
   });
 };
 
-/* ── Admin logic ── */
-window.adminLogin = () => {
-  if(A.isNewPin){
-    if(A.pinA.length < 4){ A.pinErr='PIN must be at least 4 digits'; render(); return; }
-    if(A.pinA !== A.pinB){ A.pinErr="PINs don't match"; render(); return; }
-    setPin(A.pinA); A.adminPin=A.pinA; A.isNewPin=false;
-  } else {
-    if(A.pinA !== A.adminPin){ A.pinErr='Incorrect PIN'; render(); return; }
-  }
-  A.adminAuthed=true; A.pinA=''; A.pinErr=''; render();
-};
-
-window.adminSave = async () => {
-  const {date, epTitle, shots} = A.aForm;
-  if(!date){ A.aMsg={t:'er',m:'Please enter a date'}; render(); return; }
-  if(!epTitle){ A.aMsg={t:'er',m:'Please select an episode from the list'}; render(); return; }
-  const filled = shots.filter(s => s.trim());
-  if(!filled.length){ A.aMsg={t:'er',m:'Add at least one screenshot URL'}; render(); return; }
-  const ep = EPS.find(e => e.title === epTitle);
-  if(!ep){ A.aMsg={t:'er',m:'Episode not found — pick from the dropdown'}; render(); return; }
-  const last = filled[filled.length-1];
-  const padded = shots.map(s => s.trim() || last);
-  A.aSaving=true; A.aMsg=null; render();
-  try{
-    await dbUpsert({date, title:ep.title, season:ep.season, ep:ep.ep, ep_id:ep.id, shots:padded});
-    A.puzzles = await dbAll();
-    const saved = A.puzzles.find(p => p.date === date);
-    if(saved && date === A.currentDate) A.puzzle = saved;
-    else if(saved && date <= A.today && !A.currentDate){
-      A.currentDate=date; A.puzzle=saved;
-      A.gs = getGS(date) || {status:'playing',guesses:[],revealed:1};
-    }
-    const avail = A.puzzles.filter(p => p.date <= A.today);
-    const n = avail.findIndex(p => p.date === date) + 1;
-    A.aMsg = {t:'ok', m:`Puzzle${n>0?' #'+n:''} saved for ${fmtDate(date)}!`};
-    A.aForm = {date:todayStr(), epTitle:'', shots:['','','','','']};
-    A.aEpQ=''; A.aEpLocked=false;
-  } catch(e){
-    A.aMsg = {t:'er', m:'Save failed: '+e.message};
-  }
-  A.aSaving=false; render();
-};
-
-window.adminDel = async date => {
-  try{
-    await dbDelete(date);
-    A.puzzles = A.puzzles.filter(p => p.date !== date);
-    delete A.comp[date]; saveComp(A.comp);
-    if(A.currentDate === date){
-      const avail = A.puzzles.filter(p => p.date <= A.today);
-      if(avail.length){
-        A.currentDate = avail[avail.length-1].date;
-        A.puzzle = avail[avail.length-1];
-        A.gs = getGS(A.currentDate) || {status:'playing',guesses:[],revealed:1};
-      } else { A.currentDate=null; A.puzzle=null; A.gs={status:'playing',guesses:[],revealed:1}; }
-    }
-    A.confirmDel=null; A.aMsg={t:'ok',m:'Puzzle deleted'};
-  } catch(e){ A.aMsg={t:'er',m:'Delete failed: '+e.message}; }
-  render();
-};
-
-window.adminConfirmDel = date => { A.confirmDel=date; render(); };
-window.adminCancelDel  = ()   => { A.confirmDel=null; render(); };
-
-window.adminEditLoad = date => {
-  const pz = A.puzzles.find(p => p.date === date);
-  if(!pz) return;
-  A.aForm = {date, epTitle:pz.title, shots:[...pz.shots]};
-  A.aEpQ=pz.title; A.aEpLocked=true; A.aMsg=null;
-  document.getElementById('admin-form')?.scrollIntoView({behavior:'smooth', block:'start'});
-  render();
-};
-
-window.adminLogout = () => { A.adminAuthed=false; A.pinA=''; render(); };
-
-/* ════════════════════════════════
-   RENDER FUNCTIONS
-════════════════════════════════ */
+/* ════════════════════════
+   RENDER
+════════════════════════ */
 
 function renderSetup(){
   return `<div class="setup-screen">
-    <h2>One-Time Setup Required</h2>
-    <p>BOJACKLE stores puzzles in Supabase — a free cloud database — so you can add them from any device, anywhere. Follow these four steps once and you're set for good.</p>
-
-    <div class="step">
-      <div class="step-num">1</div>
-      <div class="step-body">
-        <strong>Create a free Supabase account</strong>
-        <p>Go to <strong style="color:#c8c0e0">supabase.com</strong> and sign up. Click <strong style="color:#c8c0e0">New Project</strong>, give it a name like "bojackle", choose any region, and wait about 60 seconds for it to spin up.</p>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-num">2</div>
-      <div class="step-body">
-        <strong>Create the puzzles table</strong>
-        <p>In your Supabase dashboard, click <strong style="color:#c8c0e0">SQL Editor</strong> in the left sidebar. Paste the SQL below into the editor and click <strong style="color:#c8c0e0">Run</strong>.</p>
-        <div class="code-block">create table puzzles (
-  date    text primary key,
-  title   text not null,
-  season  int  not null,
-  ep      int  not null,
-  ep_id   text not null,
-  shots   jsonb not null
-);
-
-alter table puzzles enable row level security;
-
-create policy "Public read"
-  on puzzles for select using (true);
-
-create policy "Public write"
-  on puzzles for all
-  using (true) with check (true);</div>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-num">3</div>
-      <div class="step-body">
-        <strong>Copy your project URL and anon key</strong>
-        <p>In the Supabase sidebar go to <strong style="color:#c8c0e0">Project Settings &rarr; API</strong>. Copy the <strong style="color:#c8c0e0">Project URL</strong> and the <strong style="color:#c8c0e0">anon / public</strong> key (not the service_role key).</p>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-num">4</div>
-      <div class="step-body">
-        <strong>Paste them into this file, then re-upload</strong>
-        <p>Open <strong style="color:#c8c0e0">index.html</strong> in any text editor. Find these two lines near the top of the &lt;script&gt; block and replace the placeholder values with your real ones:</p>
-        <div class="code-block">const SUPABASE_URL  = 'https://xxxxxxxxxxxx.supabase.co';
+    <h2>Setup Required</h2>
+    <p>Open <strong style="color:#c8c0e0">index.html</strong> in a text editor, find these two lines near the top of the &lt;script&gt; block, and replace the placeholder values with your real Supabase credentials:</p>
+    <div class="code-block">const SUPABASE_URL  = 'https://xxxxxxxxxxxx.supabase.co';
 const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...';</div>
-        <p style="margin-top:8px">Save the file, then go to your GitHub repository, click the existing <strong style="color:#c8c0e0">index.html</strong> file, click the pencil icon to edit, paste in the entire updated file content, and commit. Your live site will update in about 30 seconds.</p>
-      </div>
-    </div>
-
-    <p class="setup-note">The anon key is safe to include in a public HTML file — Supabase is designed for this pattern. It only grants access to the puzzles table. Your admin PIN (set on first login) is what stops other people from adding or deleting puzzles.</p>
+    <p style="margin-top:14px">You can find both values in your Supabase dashboard under <strong style="color:#c8c0e0">Project Settings &rarr; API</strong>. Once updated, re-upload the file to GitHub and your site will be live.</p>
+    <p class="setup-note">New to this? Ask Claude to walk you through the full Supabase setup.</p>
   </div>`;
 }
 
 function renderGame(){
   if(!A.ready) return `<div class="loading-txt">Loading...</div>`;
+
+  if(A.loadErr) return `<div class="err-box">
+    <h3>Couldn't load puzzles</h3>
+    <p>There was a problem connecting to the database.<br>Check your Supabase credentials in index.html.<br><small style="opacity:.6">${esc(A.loadErr)}</small></p>
+  </div>`;
+
   const avail = A.puzzles.filter(p => p.date <= A.today);
-  if(!A.currentDate || !avail.length) return `<div class="nopu"><h3>No puzzles yet</h3><p>Add the first one from<br>the admin panel above.</p></div>`;
+  if(!avail.length) return `<div class="nopu"><h3>No puzzles yet</h3><p>Add the first one via the<br>Supabase Table Editor.</p></div>`;
 
   const pos = avail.findIndex(p => p.date === A.currentDate);
-  const isLatest = pos === avail.length-1;
+  const isLatest = pos === avail.length - 1;
 
   const navH = `<div class="pnav">
     <button class="navbtn" onclick="navigate(-1)" ${pos<=0?'disabled':''}>&larr;</button>
@@ -499,17 +341,28 @@ function renderGame(){
   }).join('');
 
   const shotsH = shots.map((s,i) =>
-    `<div class="shotw"><img src="${esc(s)}" alt="Screenshot ${i+1}" loading="lazy"/><div class="snum">#${i+1}</div>${status==='playing'&&i===shots.length-1&&revealed>1?'<div class="newbadge">NEW</div>':''}</div>`
+    `<div class="shotw">
+      <img src="${esc(s)}" alt="Screenshot ${i+1}" loading="lazy"/>
+      <div class="snum">#${i+1}</div>
+      ${status==='playing' && i===shots.length-1 && revealed>1 ? '<div class="newbadge">NEW</div>' : ''}
+    </div>`
   ).join('');
 
   const guessH = guesses.map(g =>
-    `<div class="gi ${g.skip?'sk':g.correct?'g':'r'}"><span>${g.skip?'&rarr;':g.correct?'&#10003;':'&#10007;'}</span><span>${esc(g.text)}</span></div>`
+    `<div class="gi ${g.skip?'sk':g.correct?'g':'r'}">
+      <span>${g.skip?'&rarr;':g.correct?'&#10003;':'&#10007;'}</span>
+      <span>${esc(g.text)}</span>
+    </div>`
   ).join('');
 
   let body = '';
+
   if(status !== 'playing'){
     const won = status === 'won';
-    const sqH = Array.from({length:5}, (_,i) => { const g=guesses[i]; const c=g?(g.skip?'sk':g.correct?'g':'r'):''; return `<div class="ssq ${c}"></div>`; }).join('');
+    const sqH = Array.from({length:5}, (_,i) => {
+      const g = guesses[i]; const c = g ? (g.skip?'sk':g.correct?'g':'r') : '';
+      return `<div class="ssq ${c}"></div>`;
+    }).join('');
     body = `<div class="rc">
       <div style="font-size:44px">${won ? '🐴' : '💔'}</div>
       <div class="rtt ${status}">${won ? "Neigh-borly!" : "Horsin' Around"}</div>
@@ -519,22 +372,37 @@ function renderGame(){
       <div class="sdots">${sqH}</div>
       <button class="sbtn" onclick="copyShare()">${A.copied ? '&#10003; Copied!' : 'Share Results'}</button>
       <div class="copiedtxt">${A.copied ? 'Copied to clipboard!' : ''}</div>
-    </div>${guesses.length ? `<div class="glist" style="margin-top:10px">${guessH}</div>` : ''}`;
+    </div>
+    ${guesses.length ? `<div class="glist" style="margin-top:10px">${guessH}</div>` : ''}`;
   } else {
-    const sg = getSugs(A.input); const showD = A.input.trim() && sg.length > 0;
+    const sg = getSugs(A.input);
+    const showD = A.input.trim() && sg.length > 0;
     body = `<div class="swr">
       <input class="si" id="gsi" type="text" placeholder="Search episode title..." value="${esc(A.input)}" autocomplete="off" spellcheck="false"/>
-      ${showD ? `<div class="ddown" id="gdrop">${sg.map((e,i) => `<div class="sug${i===A.focusIdx?' hi':''}" data-title="${esc(e.title)}"><span class="eid">${e.id}</span>${hi(e.title,A.input)}</div>`).join('')}</div>` : ''}
+      ${showD ? `<div class="ddown" id="gdrop">${sg.map((e,i) =>
+        `<div class="sug${i===A.focusIdx?' hi':''}" data-title="${esc(e.title)}">
+          <span class="eid">${e.id}</span>${hi(e.title, A.input)}
+        </div>`
+      ).join('')}</div>` : ''}
     </div>
     <div class="brow">
       <button class="btn bs" ${revealed>=5?'disabled':''} onclick="doSkip()">Skip &mdash; Reveal Next Clue</button>
       <button class="btn bp" ${!A.input.trim()?'disabled':''} onclick="submitGuess()">Guess</button>
-    </div>${guesses.length ? `<div class="glist">${guessH}</div>` : ''}`;
+    </div>
+    ${guesses.length ? `<div class="glist">${guessH}</div>` : ''}`;
   }
 
-  return `${navH}<div class="prow"><div class="dots">${dotsH}</div>
-    <div class="pcnt">${status==='playing' ? `Clue ${revealed}/5 &middot; ${5-guesses.length} guess${5-guesses.length===1?'':'es'} left` : status==='won' ? 'You got it! 🎉' : 'Better luck tomorrow'}</div>
-  </div><div class="sgrid ${gc}">${shotsH}</div>${body}`;
+  return `${navH}
+    <div class="prow">
+      <div class="dots">${dotsH}</div>
+      <div class="pcnt">${
+        status==='playing'
+          ? `Clue ${revealed}/5 &middot; ${5-guesses.length} guess${5-guesses.length===1?'':'es'} left`
+          : status==='won' ? 'You got it! 🎉' : 'Better luck tomorrow'
+      }</div>
+    </div>
+    <div class="sgrid ${gc}">${shotsH}</div>
+    ${body}`;
 }
 
 function renderArchive(){
@@ -544,7 +412,7 @@ function renderArchive(){
     <span class="sectitle">All Puzzles</span>
   </div>
   ${!avail.length
-    ? `<div class="nopu"><h3>No puzzles yet</h3><p>Add one in the admin panel.</p></div>`
+    ? `<div class="nopu"><h3>No puzzles yet</h3><p>Add one via the Supabase Table Editor.</p></div>`
     : `<div class="agrid">${avail.map(p => {
         const allAvail = A.puzzles.filter(x => x.date <= A.today);
         const n = allAvail.findIndex(x => x.date === p.date) + 1;
@@ -559,77 +427,14 @@ function renderArchive(){
   }`;
 }
 
-function renderAdmin(){
-  if(!A.adminAuthed){
-    return `<div class="sht">
-      <button class="bkbtn" onclick="switchView('game')">&larr; Back</button>
-      <span class="sectitle">Admin</span>
-    </div>
-    <div class="adm"><div class="pw">
-      <div class="ptit">${A.isNewPin ? 'Set Your PIN' : 'Admin Login'}</div>
-      <div class="psub">${A.isNewPin ? 'Create a PIN to protect this panel.<br>Only you will be able to add puzzles.' : 'Enter your PIN to manage puzzles.'}</div>
-      <input class="pin-in" id="pinA" type="password" inputmode="numeric" maxlength="12" placeholder="&bull;&bull;&bull;&bull;" value="${esc(A.pinA)}" autocomplete="off"/>
-      ${A.isNewPin ? `<input class="pin-in" id="pinB" type="password" inputmode="numeric" maxlength="12" placeholder="Confirm" value="${esc(A.pinB)}" autocomplete="off" style="margin-top:7px"/>` : ''}
-      <span class="perr">${esc(A.pinErr)}</span>
-      <button class="btn bp" style="width:140px;margin:0 auto;display:block" onclick="adminLogin()">${A.isNewPin ? 'Set PIN' : 'Login'}</button>
-    </div></div>`;
-  }
-
-  const sg = getSugs(A.aEpQ);
-  const showAS = A.aEpQ.trim() && sg.length > 0 && !A.aEpLocked;
-  const existing = [...A.puzzles].reverse();
-  const allAvail = A.puzzles.filter(p => p.date <= A.today);
-
-  return `<div class="adm">
-    <div class="admhdr">
-      <div class="sht" style="margin-bottom:0">
-        <button class="bkbtn" onclick="switchView('game')">&larr; Back</button>
-        <span class="sectitle">Admin Panel</span>
-      </div>
-      <button class="logoutbtn" onclick="adminLogout()">Logout</button>
-    </div>
-    <div class="formsec" id="admin-form">
-      <h4>Add / Edit Puzzle</h4>
-      <label class="fl">Date</label>
-      <input class="fi" id="aDate" type="date" value="${esc(A.aForm.date)}"/>
-      <label class="fl">Episode</label>
-      <div class="aswr">
-        <input class="fi" id="aEpQ" type="text" placeholder="Search episode title..." value="${esc(A.aEpQ)}" autocomplete="off" style="margin-bottom:0"/>
-        ${showAS ? `<div class="ddown" id="aEpDrop">${sg.map((e,i) => `<div class="sug${i===A.aEpFocus?' hi':''}" data-title="${esc(e.title)}"><span class="eid">${e.id}</span>${hi(e.title,A.aEpQ)}</div>`).join('')}</div>` : ''}
-      </div>
-      ${A.aForm.epTitle ? `<span class="ep-confirm">&#10003; ${esc(A.aForm.epTitle)}</span>` : '<div style="height:8px"></div>'}
-      <label class="fl">Screenshot URLs &mdash; enter 1 to 5</label>
-      <div class="sg5">${A.aForm.shots.map((s,i) => `<input class="fi" id="shot${i}" type="url" placeholder="Shot ${i+1} URL" value="${esc(s)}"/>`).join('')}</div>
-      <button class="btn bp" onclick="adminSave()" ${A.aSaving?'disabled':''}>${A.aSaving ? 'Saving&hellip;' : 'Save Puzzle'}</button>
-      ${A.aMsg ? `<div class="amsg ${A.aMsg.t}">${esc(A.aMsg.m)}</div>` : ''}
-    </div>
-    ${existing.length ? `<div class="plbl">All Puzzles &mdash; ${existing.length} total</div>
-    ${existing.map(p => {
-      const n = allAvail.findIndex(x => x.date === p.date) + 1;
-      const isConf = A.confirmDel === p.date;
-      return `<div class="pli">
-        <div class="plinfo">
-          <span class="pldate">${n>0?`#${n} &middot; `:''}${p.date}</span>
-          <span class="plep">${esc(p.title)}</span>
-        </div>
-        <div class="plbtns">${isConf
-          ? `<div class="dconf-wrap"><span class="dconf-txt">Delete?</span><button class="dcon" onclick="adminDel('${p.date}')">Yes</button><button class="dcx" onclick="adminCancelDel()">No</button></div>`
-          : `<button class="editbtn" onclick="adminEditLoad('${p.date}')">Edit</button><button class="delbtn" onclick="adminConfirmDel('${p.date}')">Delete</button>`
-        }</div>
-      </div>`;
-    }).join('')}` : ''}
-  </div>`;
-}
-
 /* ── Main render ── */
 function render(){
   document.querySelectorAll('.tbtn').forEach(b => b.classList.remove('act'));
   document.getElementById('btn-'+A.view)?.classList.add('act');
   const mc = document.getElementById('main-content');
   if(!A.dbOk || SUPABASE_URL === 'YOUR_SUPABASE_URL'){ mc.innerHTML=renderSetup(); return; }
-  if(A.view === 'game')    mc.innerHTML = renderGame();
+  if(A.view === 'game')         mc.innerHTML = renderGame();
   else if(A.view === 'archive') mc.innerHTML = renderArchive();
-  else                     mc.innerHTML = renderAdmin();
   bindEvents();
 }
 
@@ -643,7 +448,10 @@ function bindEvents(){
       const sg = getSugs(A.input);
       if(e.key==='ArrowDown'){ e.preventDefault(); A.focusIdx=Math.min(A.focusIdx+1,sg.length-1); render(); }
       else if(e.key==='ArrowUp'){ e.preventDefault(); A.focusIdx=Math.max(A.focusIdx-1,-1); render(); }
-      else if(e.key==='Enter'){ e.preventDefault(); if(A.focusIdx>=0&&sg[A.focusIdx]) makeGuess(sg[A.focusIdx].title); else if(A.input.trim()) submitGuess(); }
+      else if(e.key==='Enter'){ e.preventDefault();
+        if(A.focusIdx>=0 && sg[A.focusIdx]) makeGuess(sg[A.focusIdx].title);
+        else if(A.input.trim()) submitGuess();
+      }
       else if(e.key==='Escape'){ A.input=''; render(); }
     });
     document.querySelectorAll('#gdrop .sug').forEach(el => {
@@ -651,41 +459,6 @@ function bindEvents(){
       el.addEventListener('click', () => makeGuess(el.dataset.title));
     });
   }
-
-  const pinA = document.getElementById('pinA');
-  if(pinA){
-    pinA.focus();
-    pinA.addEventListener('input', e => { A.pinA=e.target.value; A.pinErr=''; });
-    pinA.addEventListener('keydown', e => { if(e.key==='Enter') adminLogin(); });
-  }
-  const pinB = document.getElementById('pinB');
-  if(pinB){
-    pinB.addEventListener('input', e => { A.pinB=e.target.value; A.pinErr=''; });
-    pinB.addEventListener('keydown', e => { if(e.key==='Enter') adminLogin(); });
-  }
-
-  const aDate = document.getElementById('aDate');
-  if(aDate) aDate.addEventListener('change', e => { A.aForm.date=e.target.value; });
-
-  const aEpEl = document.getElementById('aEpQ');
-  if(aEpEl){
-    aEpEl.addEventListener('input', e => { A.aEpQ=e.target.value; A.aEpFocus=-1; A.aEpLocked=false; A.aForm.epTitle=''; render(); });
-    aEpEl.addEventListener('keydown', e => {
-      const sg = getSugs(A.aEpQ);
-      if(e.key==='ArrowDown'){ e.preventDefault(); A.aEpFocus=Math.min(A.aEpFocus+1,sg.length-1); render(); }
-      else if(e.key==='ArrowUp'){ e.preventDefault(); A.aEpFocus=Math.max(A.aEpFocus-1,-1); render(); }
-      else if(e.key==='Enter'){ e.preventDefault(); if(A.aEpFocus>=0&&sg[A.aEpFocus]){ A.aForm.epTitle=sg[A.aEpFocus].title; A.aEpQ=sg[A.aEpFocus].title; A.aEpLocked=true; render(); } }
-    });
-    document.querySelectorAll('#aEpDrop .sug').forEach(el => {
-      el.addEventListener('mousedown', e => e.preventDefault());
-      el.addEventListener('click', () => { A.aForm.epTitle=el.dataset.title; A.aEpQ=el.dataset.title; A.aEpLocked=true; render(); });
-    });
-  }
-
-  [0,1,2,3,4].forEach(i => {
-    const el = document.getElementById('shot'+i);
-    if(el) el.addEventListener('input', e => { A.aForm.shots[i]=e.target.value; });
-  });
 }
 
 boot();
