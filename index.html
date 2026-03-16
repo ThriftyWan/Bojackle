@@ -297,6 +297,23 @@ window.copyShare = () => {
   });
 };
 
+const WIN_MSGS = [
+  "",
+  "Not bad, Mr. Peanutbutter.",
+  "Hooray!",
+  "What is this? A cross-over episode?",
+];
+
+const LOSE_MSGS = [
+  "Oh, well! It was nice while it lasted, right?",
+  "It gets easier, but you gotta do it everyday",
+  "Fool me once, shame on me, but fool me twice fiddle-dee-dee",
+  "I failed the Bojackdle and everything is worse now.",
+  "Aww fish!",
+  "You gotta get your sh*t together",
+];
+
+  
 /* ════════════════════════
    RENDER
 ════════════════════════ */
@@ -378,7 +395,7 @@ function renderGame(){
     }).join('');
     body = `<div class="rc">
       <div style="font-size:44px">${won ? '🐴' : '💔'}</div>
-      <div class="rtt ${status}">${won ? "Neigh-borly!" : "Horsin' Around"}</div>
+      <div class="rtt ${status}">${won ? WIN_MSGS[Math.floor(Math.random()*WIN_MSGS.length)] : LOSE_MSGS[Math.floor(Math.random()*LOSE_MSGS.length)]}</div>
       <div class="rep">${esc(A.puzzle.ep_id)} &middot; Season ${A.puzzle.season}</div>
       <div class="ren">&ldquo;${esc(A.puzzle.title)}&rdquo;</div>
       <span class="rsn">Season ${A.puzzle.season}</span>
