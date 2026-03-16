@@ -186,7 +186,7 @@ const EPS = [
 }));
 
 /* ── Utils ── */
-function todayStr(){ const d=new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+function todayStr(){ const d=new Date(); return `${d.getUTCFullYear()}-${String(d.getUTCMonth()+1).padStart(2,'0')}-${String(d.getUTCDate()).padStart(2,'0')}`; }
 function fmtDate(ds){ if(!ds) return ''; const[y,m,d]=ds.split('-'); return new Date(+y,+m-1,+d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); }
 function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function hi(t,q){ if(!q.trim()) return esc(t); const i=t.toLowerCase().indexOf(q.toLowerCase()); if(i<0) return esc(t); return esc(t.slice(0,i))+`<strong style="color:#f5c842">${esc(t.slice(i,i+q.length))}</strong>`+esc(t.slice(i+q.length)); }
