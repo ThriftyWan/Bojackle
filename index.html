@@ -27,14 +27,20 @@ body{background:#0e0d18;color:#e8e0d0;font-family:'DM Sans',sans-serif;min-heigh
 .pinfo{text-align:center;min-width:160px}
 .pnum{font-size:13px;font-weight:600;color:#a89fc0;letter-spacing:.4px}
 .pdate{font-size:11px;color:#4a4865;margin-top:2px}
-/* Screenshots */
-.sgrid{display:grid;gap:5px;margin-bottom:12px}
-.g1{grid-template-columns:1fr}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr 1fr 1fr}
-.g4{grid-template-columns:1fr 1fr}.g5{grid-template-columns:1fr 1fr 1fr}
-.shotw{position:relative;border-radius:7px;overflow:hidden;border:1px solid #2a2845;aspect-ratio:16/9;background:#0a0918}
-.shotw img{width:100%;height:100%;object-fit:cover;display:block}
-.snum{position:absolute;top:5px;left:6px;background:rgba(0,0,0,.75);border-radius:4px;padding:2px 7px;font-size:10px;color:#a89fc0;font-weight:700;letter-spacing:.5px}
-.newbadge{position:absolute;top:5px;right:6px;background:#f5c842;color:#0e0d18;border-radius:4px;padding:2px 7px;font-size:9px;font-weight:700;letter-spacing:.5px;animation:pop .3s}
+/* Slideshow */
+.main-shot{position:relative;border-radius:10px;overflow:hidden;border:1px solid #2a2845;aspect-ratio:16/9;background:#0a0918;margin-bottom:8px}
+.main-shot img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .25s}
+.main-shot img.fade{opacity:0}
+.snum{position:absolute;top:8px;left:9px;background:rgba(0,0,0,.75);border-radius:4px;padding:3px 8px;font-size:10px;color:#a89fc0;font-weight:700;letter-spacing:.5px}
+.newbadge{position:absolute;top:8px;right:9px;background:#f5c842;color:#0e0d18;border-radius:4px;padding:3px 8px;font-size:9px;font-weight:700;letter-spacing:.5px;animation:pop .3s}
+/* Thumbnails */
+.thumbs{display:flex;gap:6px;margin-bottom:12px}
+.thumb{position:relative;flex:1;border-radius:6px;overflow:hidden;aspect-ratio:16/9;background:#0a0918;border:2px solid transparent;cursor:pointer;transition:border-color .15s}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block;opacity:.55;transition:opacity .15s}
+.thumb.active{border-color:#f5c842}
+.thumb.active img{opacity:1}
+.thumb:hover img{opacity:.85}
+.thumb-num{position:absolute;bottom:3px;right:5px;font-size:9px;font-weight:700;color:rgba(255,255,255,.6);letter-spacing:.4px}
 /* Progress */
 .prow{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
 .dots{display:flex;gap:5px}
@@ -128,6 +134,7 @@ body{background:#0e0d18;color:#e8e0d0;font-family:'DM Sans',sans-serif;min-heigh
 const SUPABASE_URL  = 'https://onwgqxzzkcqphqlhlwgw.supabase.co';
 const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9ud2dxeHp6a2NxcGhxbGhsd2d3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2MTM5MTMsImV4cCI6MjA4OTE4OTkxM30.u7HmsgHtfGe4P2hZS7wJIHgxVc9swKkDLGj_qivr0tA';
 
+
 /* ── Supabase ── */
 let db = null;
 function initDB(){
@@ -197,7 +204,7 @@ const A = {
   view:'game', today:todayStr(), ready:false, dbOk:false, loadErr:null,
   puzzles:[], currentDate:null, puzzle:null,
   gs:{status:'playing',guesses:[],revealed:1}, comp:{},
-  input:'', focusIdx:-1, copied:false,
+  input:'', focusIdx:-1, copied:false, activeShot:0,
 };
 
 /* ── Boot ── */
@@ -220,6 +227,7 @@ async function boot(){
     A.loadErr = e.message;
     A.ready = true;
   }
+  A.activeShot = A.gs.revealed - 1;
   render();
 }
 
@@ -233,7 +241,7 @@ window.navigate = dir => {
   A.currentDate = avail[ni].date;
   A.puzzle = avail[ni];
   A.gs = getGS(A.currentDate) || {status:'playing',guesses:[],revealed:1};
-  A.input=''; A.focusIdx=-1;
+  A.input=''; A.focusIdx=-1; A.activeShot=A.gs.revealed-1;
   render();
 };
 
@@ -242,7 +250,7 @@ window.goToDate = date => {
   if(!p) return;
   A.currentDate=date; A.puzzle=p; A.view='game';
   A.gs = getGS(date) || {status:'playing',guesses:[],revealed:1};
-  A.input=''; A.focusIdx=-1;
+  A.input=''; A.focusIdx=-1; A.activeShot=A.gs.revealed-1;
   render();
 };
 
@@ -253,7 +261,7 @@ function makeGuess(title){
   A.input=''; A.focusIdx=-1;
   if(correct){ A.gs.status='won'; markComp('won'); }
   else if(A.gs.guesses.length >= 5){ A.gs.status='lost'; markComp('lost'); }
-  else A.gs.revealed = Math.min(A.gs.revealed+1, 5);
+  else{ A.gs.revealed = Math.min(A.gs.revealed+1, 5); A.activeShot=A.gs.revealed-1; }
   saveGS(A.currentDate, A.gs);
   render();
 }
@@ -261,7 +269,7 @@ function makeGuess(title){
 window.doSkip = () => {
   A.gs.guesses.push({text:'Skipped', correct:false, skip:true});
   if(A.gs.guesses.length >= 5){ A.gs.status='lost'; markComp('lost'); }
-  else A.gs.revealed = Math.min(A.gs.revealed+1, 5);
+  else{ A.gs.revealed = Math.min(A.gs.revealed+1, 5); A.activeShot=A.gs.revealed-1; }
   saveGS(A.currentDate, A.gs);
   render();
 };
@@ -331,7 +339,20 @@ function renderGame(){
 
   const {status, guesses, revealed} = A.gs;
   const shots = A.puzzle.shots.slice(0, status !== 'playing' ? 5 : revealed);
-  const gc = ['','g1','g2','g3','g4','g5'][shots.length] || 'g5';
+  const active = Math.min(A.activeShot, shots.length-1);
+
+  const mainShotH = `<div class="main-shot">
+    <img id="main-img" src="${esc(shots[active])}" alt="Screenshot ${active+1}"/>
+    <div class="snum">Clue #${active+1}</div>
+    ${status==='playing' && active===shots.length-1 && revealed>1 ? '<div class="newbadge">NEW</div>' : ''}
+  </div>`;
+
+  const thumbsH = shots.length > 1 ? `<div class="thumbs">
+    ${shots.map((s,i) => `<div class="thumb${i===active?' active':''}" onclick="setShot(${i})">
+      <img src="${esc(s)}" alt="Clue ${i+1}" loading="lazy"/>
+      <div class="thumb-num">#${i+1}</div>
+    </div>`).join('')}
+  </div>` : '';
 
   const dotsH = Array.from({length:5}, (_,i) => {
     const g = guesses[i]; let c = 'dot';
@@ -339,14 +360,6 @@ function renderGame(){
     else if(i < revealed) c += ' l';
     return `<div class="${c}"></div>`;
   }).join('');
-
-  const shotsH = shots.map((s,i) =>
-    `<div class="shotw">
-      <img src="${esc(s)}" alt="Screenshot ${i+1}" loading="lazy"/>
-      <div class="snum">#${i+1}</div>
-      ${status==='playing' && i===shots.length-1 && revealed>1 ? '<div class="newbadge">NEW</div>' : ''}
-    </div>`
-  ).join('');
 
   const guessH = guesses.map(g =>
     `<div class="gi ${g.skip?'sk':g.correct?'g':'r'}">
@@ -401,7 +414,8 @@ function renderGame(){
           : status==='won' ? 'You got it! 🎉' : 'Better luck tomorrow'
       }</div>
     </div>
-    <div class="sgrid ${gc}">${shotsH}</div>
+    ${mainShotH}
+    ${thumbsH}
     ${body}`;
 }
 
@@ -426,6 +440,13 @@ function renderArchive(){
       }).join('')}</div>`
   }`;
 }
+
+/* ── Thumbnail selection ── */
+window.setShot = i => {
+  const img = document.getElementById('main-img');
+  if(img){ img.classList.add('fade'); setTimeout(() => { A.activeShot=i; render(); }, 200); }
+  else { A.activeShot=i; render(); }
+};
 
 /* ── Main render ── */
 function render(){
