@@ -312,6 +312,15 @@ const LOSE_MSGS = [
   "You gotta get your sh*t together",
 ];
 
+window.replayPuzzle = () => {
+  A.gs = {status:'playing', guesses:[], revealed:1};
+  A.activeShot = 0;
+  A.input = '';
+  delete A.comp[A.currentDate];
+  saveComp(A.comp);
+  saveGS(A.currentDate, A.gs);
+  render();
+};
   
 /* ════════════════════════
    RENDER
@@ -400,6 +409,7 @@ function renderGame(){
       <span class="rsn">Season ${A.puzzle.season}</span>
       <div class="sdots">${sqH}</div>
       <button class="sbtn" onclick="copyShare()">${A.copied ? '&#10003; Copied!' : 'Share Results'}</button>
+      <button class="sbtn" onclick="replayPuzzle()" style="background:transparent;border:1px solid #2a2845;color:#a89fc0;margin-top:8px">Play Again</button>
       <div class="copiedtxt">${A.copied ? 'Copied to clipboard!' : ''}</div>
     </div>
     ${guesses.length ? `<div class="glist" style="margin-top:10px">${guessH}</div>` : ''}`;
