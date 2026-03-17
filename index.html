@@ -198,7 +198,7 @@ function todayStr(){ const d=new Date(); return `${d.getUTCFullYear()}-${String(
 function fmtDate(ds){ if(!ds) return ''; const[y,m,d]=ds.split('-'); return new Date(+y,+m-1,+d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); }
 function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function hi(t,q){ return esc(t); }
-function getSugs(q){ if(!q.trim()) return []; const lq=q.toLowerCase(); return EPS.filter(e=>e.title.toLowerCase().includes(lq)||e.id.toLowerCase().includes(lq)).slice(0,8); }
+function getSugs(q){ if(!q.trim()) return []; const lq=q.toLowerCase().trim(); return EPS.filter(e=>{ const seasonMatch = lq==='s1'||lq==='season 1' ? e.season===1 : lq==='s2'||lq==='season 2' ? e.season===2 : lq==='s3'||lq==='season 3' ? e.season===3 : lq==='s4'||lq==='season 4' ? e.season===4 : lq==='s5'||lq==='season 5' ? e.season===5 : lq==='s6'||lq==='season 6' ? e.season===6 : false; return seasonMatch||e.title.toLowerCase().includes(lq)||e.id.toLowerCase().includes(lq); }).slice(0,8); }
 
 /* ── App state ── */
 const A = {
